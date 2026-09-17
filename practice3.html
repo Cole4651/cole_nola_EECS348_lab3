@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Password Verification | EECS 348</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <main class="shell">
+        <a class="back" href="index.html">&larr; Back to lab index</a>
+        <section class="content panel">
+            <span class="tag">Practice 3 / JavaScript</span>
+            <h1>Password verification</h1>
+            <p>Enter the same password twice. A valid password must contain at least eight characters.</p>
+            <form id="password-form">
+                <label for="password-one">Password</label>
+                <input id="password-one" type="password" autocomplete="new-password" required>
+                <label for="password-two">Verify password</label>
+                <input id="password-two" type="password" autocomplete="new-password" required>
+                <button type="submit">Verify passwords</button>
+            </form>
+            <p id="password-message" class="message" aria-live="polite"></p>
+        </section>
+    </main>
+    <script>
+        document.querySelector('#password-form').addEventListener('submit', event => {
+            event.preventDefault();
+            const first = document.querySelector('#password-one').value;
+            const second = document.querySelector('#password-two').value;
+            const message = document.querySelector('#password-message');
+            if (first.length < 8) {
+                message.textContent = 'The password must be at least eight characters long.';
+                message.style.color = '#9f3823';
+            } else if (first !== second) {
+                message.textContent = 'The passwords do not match.';
+                message.style.color = '#9f3823';
+            } else {
+                message.textContent = 'The passwords match.';
+                message.style.color = '#28734a';
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS Font Control | EECS 348</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <main class="shell">
+        <a class="back" href="index.html">&larr; Back to lab index</a>
+        <section class="content panel">
+            <span class="tag">Practice 2 / CSS</span>
+            <h1>Font control lab</h1>
+            <p>Enter RGB values from 0 to 255 to change the paragraph text and border colors. Adjust the border width with the slider.</p>
+            <div class="control-grid">
+                <div><label for="text-red">Text red</label><input id="text-red" type="number" min="0" max="255" value="23"></div>
+                <div><label for="text-green">Text green</label><input id="text-green" type="number" min="0" max="255" value="32"></div>
+                <div><label for="text-blue">Text blue</label><input id="text-blue" type="number" min="0" max="255" value="42"></div>
+                <div><label for="border-red">Border red</label><input id="border-red" type="number" min="0" max="255" value="217"></div>
+                <div><label for="border-green">Border green</label><input id="border-green" type="number" min="0" max="255" value="93"></div>
+                <div><label for="border-blue">Border blue</label><input id="border-blue" type="number" min="0" max="255" value="57"></div>
+            </div>
+            <label for="border-width">Border width: <output id="width-value">4</output>px</label>
+            <input id="border-width" type="range" min="0" max="20" value="4">
+            <p id="demo-text" class="demo-text">Web development combines structure, presentation, and behavior. This paragraph changes as you experiment with the controls above.</p>
+        </section>
+    </main>
+    <script>
+        const controls = document.querySelectorAll('input[type="number"]');
+        const text = document.querySelector('#demo-text');
+        const width = document.querySelector('#border-width');
+        const widthValue = document.querySelector('#width-value');
+        const value = id => Math.max(0, Math.min(255, Number(document.querySelector(id).value) || 0));
+        function updateDemo() {
+            text.style.color = `rgb(${value('#text-red')}, ${value('#text-green')}, ${value('#text-blue')})`;
+            text.style.borderColor = `rgb(${value('#border-red')}, ${value('#border-green')}, ${value('#border-blue')})`;
+            text.style.borderWidth = `${width.value}px`;
+            widthValue.value = width.value;
+            widthValue.textContent = width.value;
+        }
+        controls.forEach(control => control.addEventListener('input', updateDemo));
+        width.addEventListener('input', updateDemo);
+        updateDemo();
+    </script>
+</body>
+</html>
